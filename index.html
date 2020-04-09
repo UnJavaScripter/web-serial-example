@@ -4,6 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Web Serial</title>
+  <style>
+    .repo-link {
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      margin: 0 1rem 1rem 0;
+    }
+  </style>
 </head>
 <body>
 
@@ -17,6 +25,10 @@
   </div>
   <div id="serial-messages-container"></div>
   
+  <div class="repo-link">
+    <a href="https://github.com/UnJavaScripter/web-serial-example">GitHub Repo</a>
+  </div>
+
   <script src="./dist/app.js"></script>
   <script>
     const serialLEDController = new SerialLEDController();
