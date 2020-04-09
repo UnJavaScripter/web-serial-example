@@ -2,7 +2,7 @@
 
 A demo showing the basics of Web Serial API to connect a browser with serial devices.
 
-Check out the blog post on Web Serial API to learn more about it.
+Check out the blog post on Web Serial API to learn more about it: [https://dev.to/unjavascripter/the-amazing-powers-of-the-web-web-serial-api-3ilc](https://dev.to/unjavascripter/the-amazing-powers-of-the-web-web-serial-api-3ilc)
 
 ## TL;DR
 
