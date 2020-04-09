@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Serial</title>
+</head>
+<body>
+
+  <button id="connect-to-serial">Connect to serial port</button>
+  <button id="get-serial-messages">Get serial messages</button>
+  <div>
+    <form id="message-form">
+      <input type="text" id="message-input" disabled="true">
+      <button type="submit" id="submit-button" disabled="true">Send</button>
+    </form>
+  </div>
+  <div id="serial-messages-container"></div>
+  
+  <script src="./dist/app.js"></script>
+  <script>
+    const serialLEDController = new SerialLEDController();
+    const connect = document.getElementById('connect-to-serial');
+    const getSerialMessages = document.getElementById('get-serial-messages');
+    const messageForm = document.getElementById('message-form');
+    const messageInput = document.getElementById('message-input');
+    const submitButton = document.getElementById('submit-button');
+    const serialMessagesContainer = document.getElementById('serial-messages-container');
+
+    connect.addEventListener('pointerdown', () => {
+      serialLEDController.init();
+
+      serialMessagesContainer.removeAttribute('disabled');
+      messageInput.removeAttribute('disabled');
+      submitButton.removeAttribute('disabled');
+    });
+
+    messageForm.addEventListener('submit', event => {
+      event.preventDefault();
+      serialLEDController.write(event.target.firstElementChild.value);
+      getSerialMessage();
+    });
+
+    getSerialMessages.addEventListener('pointerdown', async () => {
+      getSerialMessage();
+    });
+
+    async function getSerialMessage() {
+      serialMessagesContainer.innerText += await serialLEDController.read() + '\n';
+    }
+
+  </script>
+</body>
+</html>
