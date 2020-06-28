@@ -11,13 +11,18 @@ class SerialLEDController {
                 await port.open({ baudrate: 9600 });
                 this.reader = port.readable.getReader();
                 this.writer = port.writable.getWriter();
+                let signals = await port.getSignals();
+                console.log(signals);
             }
             catch (err) {
                 console.error('There was an error opening the serial port:', err);
             }
         }
         else {
-            console.error('Web serial doesn\'t seem to be enabled in your browser. Try enabling it (if Chrome, visit chrome://flags/#enable-experimental-web-platform-features).');
+            console.error('Web serial doesn\'t seem to be enabled in your browser. Try enabling it by visiting:');
+            console.error('chrome://flags/#enable-experimental-web-platform-features');
+            console.error('opera://flags/#enable-experimental-web-platform-features');
+            console.error('edge://flags/#enable-experimental-web-platform-features');
         }
     }
     async write(data) {

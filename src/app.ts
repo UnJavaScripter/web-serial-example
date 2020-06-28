@@ -11,6 +11,9 @@ class SerialLEDController {
         await port.open({ baudrate: 9600 });
         this.reader = port.readable.getReader();
         this.writer = port.writable.getWriter();
+        
+        let signals = await port.getSignals();
+        console.log(signals)
       } catch(err) {
         console.error('There was an error opening the serial port:', err);
       }
