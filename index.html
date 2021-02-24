@@ -8,7 +8,7 @@
   <style>
     .repo-link {
       position: fixed;
-      bottom: 0;
+      top: 0;
       right: 0;
       margin: 0 1rem 1rem 0;
     }
@@ -18,50 +18,21 @@
 
   <button id="connect-to-serial">Connect to serial port</button>
   <button id="get-serial-messages">Get serial messages</button>
+
   <div>
     <form id="message-form">
-      <input type="text" id="message-input" disabled="true">
+      <input type="text" id="message-input" disabled="true" autocomplete="off">
       <button type="submit" id="submit-button" disabled="true">Send</button>
     </form>
   </div>
-  <div id="serial-messages-container"></div>
+
+  <ol id="serial-messages-container"></ol>
   
   <div class="repo-link">
     <a href="https://github.com/UnJavaScripter/web-serial-example">GitHub Repo</a>
   </div>
 
-  <script src="./dist/app.js"></script>
-  <script>
-    const serialLEDController = new SerialLEDController();
-    const connect = document.getElementById('connect-to-serial');
-    const getSerialMessages = document.getElementById('get-serial-messages');
-    const messageForm = document.getElementById('message-form');
-    const messageInput = document.getElementById('message-input');
-    const submitButton = document.getElementById('submit-button');
-    const serialMessagesContainer = document.getElementById('serial-messages-container');
-
-    connect.addEventListener('pointerdown', () => {
-      serialLEDController.init();
-
-      serialMessagesContainer.removeAttribute('disabled');
-      messageInput.removeAttribute('disabled');
-      submitButton.removeAttribute('disabled');
-    });
-
-    messageForm.addEventListener('submit', event => {
-      event.preventDefault();
-      serialLEDController.write(event.target.firstElementChild.value);
-      getSerialMessage();
-    });
-
-    getSerialMessages.addEventListener('pointerdown', async () => {
-      getSerialMessage();
-    });
-
-    async function getSerialMessage() {
-      serialMessagesContainer.innerText += await serialLEDController.read() + '\n';
-    }
-
-  </script>
+  <script src="./dist/serial-handler.js" type="module"></script>
+  <script src="./dist/app.js" type="module"></script>
 </body>
 </html>
