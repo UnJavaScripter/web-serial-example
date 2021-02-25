@@ -9,29 +9,26 @@ import { serialHandler } from './serial-handler.js';
 
 class WebSerialDemoApp {
   connectButtonElem = <HTMLButtonElement>document.getElementById('connect-to-serial')!;
-  getSerialMessages = <HTMLElement>document.getElementById('get-serial-messages')!;
-  messageForm = <HTMLElement>document.getElementById('message-form')!;
+  messageButtons = document.querySelectorAll<HTMLButtonElement>('.message-button')!;
   messageInput = <HTMLInputElement>document.getElementById('message-input')!;
   submitButton = <HTMLElement>document.getElementById('submit-button')!;
   serialMessagesContainer = <HTMLOListElement>document.getElementById('serial-messages-container')!;
 
   constructor() {
-    this.connectButtonElem.onclick = () => {
-      serialHandler.init();
+    this.connectButtonElem.onclick = async () => {
+      await serialHandler.init();
 
-      this.messageInput.removeAttribute('disabled');
-      this.submitButton.removeAttribute('disabled');
+      this.messageButtons.forEach((button: HTMLButtonElement) => {
+          button.removeAttribute('disabled');
+      });
     };
 
-    this.messageForm.addEventListener('submit', async (event: Event) => {
-      event.preventDefault();
-      await serialHandler.write(this.messageInput.value);
-      this.getSerialMessage();
+    this.messageButtons.forEach((button: HTMLButtonElement) => {
+      button.onclick = () => {
+        serialHandler.write(String(button.dataset.value));
+        this.getSerialMessage();
+      }
     });
-
-    this.getSerialMessages.onclick = async () => {
-      this.getSerialMessage();
-    };
 
   }
   
@@ -41,6 +38,7 @@ class WebSerialDemoApp {
 
     listElement.innerText = `Message received at ${now.getHours()}:${now.getMinutes()}.${now.getMilliseconds()}: ${await serialHandler.read()}`;
     this.serialMessagesContainer.appendChild(listElement);
+    console.log(listElement)
   }
 }
 

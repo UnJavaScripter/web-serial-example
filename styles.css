@@ -1,0 +1,76 @@
+:root {
+  --color-active: #a06ea0;
+  --color-primary: #e28cb1;
+  --color-background: #564f7d;
+  --color-background-light  : rgba(255, 255, 255, 0.1);
+  --color-primary-light: #d7d6da;
+  --color-white: #fff;
+}
+
+body {
+  font-size: 2.5em;
+  background-color: var(--color-background);
+  font-family: 'Poppins', sans-serif;
+  color: var(--color-primary-light);
+  text-align: center;
+}
+
+.repo-link a {
+  color: var(--color-primary-light)
+}
+
+
+button {
+  appearance: none;
+  border: solid 2px var(--color-active);
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  padding: 2rem 1rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-size: 1.3ch;
+}
+
+@media screen and (min-width: 640px) {
+  button {
+    padding: 2rem 4rem;
+  }
+}
+
+button:disabled {
+  background-color: var(--color-background);
+  color: var(--color-background-light);
+  border: none;
+}
+
+button:hover:not(:disabled),
+button:focus {
+  background-color: var(--color-active);
+}
+
+.elements {
+  counter-reset: the-counter;
+}
+
+.element {
+  counter-increment: the-counter;
+  margin: 2rem 3rem;
+  background-color: var(--color-background-light);
+  padding: 2rem 3.5rem;
+  word-break: break-word;
+}
+
+.element::before {
+  content: counter(the-counter);
+  font-weight: bold;
+  font-size: 5.5rem;
+}
+
+.element h2 {
+  margin-top: 0;
+}
+
+ol > li {
+  text-align: start;
+}

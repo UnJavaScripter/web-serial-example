@@ -45,35 +45,29 @@ var WebSerialDemoApp = /** @class */ (function () {
     function WebSerialDemoApp() {
         var _this = this;
         this.connectButtonElem = document.getElementById('connect-to-serial');
-        this.getSerialMessages = document.getElementById('get-serial-messages');
-        this.messageForm = document.getElementById('message-form');
+        this.messageButtons = document.querySelectorAll('.message-button');
         this.messageInput = document.getElementById('message-input');
         this.submitButton = document.getElementById('submit-button');
         this.serialMessagesContainer = document.getElementById('serial-messages-container');
-        this.connectButtonElem.onclick = function () {
-            serialHandler.init();
-            _this.messageInput.removeAttribute('disabled');
-            _this.submitButton.removeAttribute('disabled');
-        };
-        this.messageForm.addEventListener('submit', function (event) { return __awaiter(_this, void 0, void 0, function () {
+        this.connectButtonElem.onclick = function () { return __awaiter(_this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0:
-                        event.preventDefault();
-                        return [4 /*yield*/, serialHandler.write(this.messageInput.value)];
+                    case 0: return [4 /*yield*/, serialHandler.init()];
                     case 1:
                         _a.sent();
-                        this.getSerialMessage();
+                        this.messageButtons.forEach(function (button) {
+                            button.removeAttribute('disabled');
+                        });
                         return [2 /*return*/];
                 }
             });
-        }); });
-        this.getSerialMessages.onclick = function () { return __awaiter(_this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                this.getSerialMessage();
-                return [2 /*return*/];
-            });
         }); };
+        this.messageButtons.forEach(function (button) {
+            button.onclick = function () {
+                serialHandler.write(String(button.dataset.value));
+                _this.getSerialMessage();
+            };
+        });
     }
     WebSerialDemoApp.prototype.getSerialMessage = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -89,6 +83,7 @@ var WebSerialDemoApp = /** @class */ (function () {
                     case 1:
                         _a.innerText = _b + (_c.sent());
                         this.serialMessagesContainer.appendChild(listElement);
+                        console.log(listElement);
                         return [2 /*return*/];
                 }
             });
