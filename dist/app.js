@@ -38,7 +38,7 @@ import { serialHandler } from './serial-handler.js';
 /**
  * UI specific code
  * This code is only meant to handle the elements and interactions in this example.
- * For the actual Web Serial API code, check `/src/serial-handler.ts`.
+ * For the actual Web Serial API code, check `./src/serial-handler.ts`.
  * If you're not familiar with TypeScript code, just ignore the `<TYPE>` and `:TYPE` parts.
  */
 var WebSerialDemoApp = /** @class */ (function () {
@@ -49,7 +49,7 @@ var WebSerialDemoApp = /** @class */ (function () {
         this.messageInput = document.getElementById('message-input');
         this.submitButton = document.getElementById('submit-button');
         this.serialMessagesContainer = document.getElementById('serial-messages-container');
-        this.connectButtonElem.onclick = function () { return __awaiter(_this, void 0, void 0, function () {
+        this.connectButtonElem.addEventListener('pointerdown', function () { return __awaiter(_this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, serialHandler.init()];
@@ -61,12 +61,12 @@ var WebSerialDemoApp = /** @class */ (function () {
                         return [2 /*return*/];
                 }
             });
-        }); };
+        }); });
         this.messageButtons.forEach(function (button) {
-            button.onclick = function () {
+            button.addEventListener('pointerdown', function () {
                 serialHandler.write(String(button.dataset.value));
                 _this.getSerialMessage();
-            };
+            });
         });
     }
     WebSerialDemoApp.prototype.getSerialMessage = function () {
@@ -78,12 +78,11 @@ var WebSerialDemoApp = /** @class */ (function () {
                         now = new Date();
                         listElement = document.createElement('li');
                         _a = listElement;
-                        _b = "Message received at " + now.getHours() + ":" + now.getMinutes() + "." + now.getMilliseconds() + ": ";
+                        _b = "Message received at " + String(now.getHours()).padStart(2, '0') + ":" + String(now.getMinutes()).padStart(2, '0') + "." + now.getMilliseconds() + ": ";
                         return [4 /*yield*/, serialHandler.read()];
                     case 1:
                         _a.innerText = _b + (_c.sent());
                         this.serialMessagesContainer.appendChild(listElement);
-                        console.log(listElement);
                         return [2 /*return*/];
                 }
             });

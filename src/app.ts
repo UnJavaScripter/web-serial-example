@@ -3,7 +3,7 @@ import { serialHandler } from './serial-handler.js';
 /**
  * UI specific code
  * This code is only meant to handle the elements and interactions in this example.
- * For the actual Web Serial API code, check `/src/serial-handler.ts`.
+ * For the actual Web Serial API code, check `./src/serial-handler.ts`.
  * If you're not familiar with TypeScript code, just ignore the `<TYPE>` and `:TYPE` parts.
  */
 
@@ -15,30 +15,28 @@ class WebSerialDemoApp {
   serialMessagesContainer = <HTMLOListElement>document.getElementById('serial-messages-container')!;
 
   constructor() {
-    this.connectButtonElem.onclick = async () => {
+    this.connectButtonElem.addEventListener('pointerdown', async () => {
       await serialHandler.init();
 
       this.messageButtons.forEach((button: HTMLButtonElement) => {
           button.removeAttribute('disabled');
       });
-    };
+    })
 
     this.messageButtons.forEach((button: HTMLButtonElement) => {
-      button.onclick = () => {
+      button.addEventListener('pointerdown', () => {
         serialHandler.write(String(button.dataset.value));
         this.getSerialMessage();
-      }
-    });
-
+      })
+    })
   }
   
   async getSerialMessage() {
     const now = new Date();
     const listElement = document.createElement('li');
 
-    listElement.innerText = `Message received at ${now.getHours()}:${now.getMinutes()}.${now.getMilliseconds()}: ${await serialHandler.read()}`;
+    listElement.innerText = `Message received at ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}.${now.getMilliseconds()}: ${await serialHandler.read()}`;
     this.serialMessagesContainer.appendChild(listElement);
-    console.log(listElement)
   }
 }
 

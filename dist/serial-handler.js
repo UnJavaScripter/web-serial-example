@@ -76,10 +76,7 @@ var SerialHandler = /** @class */ (function () {
                         return [3 /*break*/, 6];
                     case 6: return [3 /*break*/, 8];
                     case 7:
-                        console.error('Web serial doesn\'t seem to be enabled in your browser. Try enabling it by visiting:');
-                        console.error('chrome://flags/#enable-experimental-web-platform-features');
-                        console.error('opera://flags/#enable-experimental-web-platform-features');
-                        console.error('edge://flags/#enable-experimental-web-platform-features');
+                        console.error('Web serial doesn\'t seem to be enabled in your browser. Check https://developer.mozilla.org/en-US/docs/Web/API/Web_Serial_API#browser_compatibility for more info.');
                         _a.label = 8;
                     case 8: return [2 /*return*/];
                 }
