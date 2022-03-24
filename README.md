@@ -4,6 +4,10 @@ A simple demo showing the basics of the Web Serial API connecting a browser with
 
 Check this blog post on Web Serial API to learn more: [https://dev.to/unjavascripter/the-amazing-powers-of-the-web-web-serial-api-3ilc](https://dev.to/unjavascripter/the-amazing-powers-of-the-web-web-serial-api-3ilc)
 
+## Live Demo
+
+https://unjavascripter.github.io/web-serial-example/
+
 ## TL;DR
 
 1. Upload the code in `./web_serial_onboard_led.ino` to your Arduino device
